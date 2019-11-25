@@ -23,9 +23,7 @@ pipeline {
 			
         string( name: 'NOTIFICATION_EMAIL',
                 defaultValue: 'gaurang.gunde@microchip.com',
-                subject: 'Test Deployment',
-                description: "Email to send successful build, failed build and deployment notifications.")
-		
+                description: "Email to send successful build, failed build and deployment notifications.")	
     }
 
     options {
