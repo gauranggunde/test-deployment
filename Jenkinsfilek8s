@@ -56,7 +56,6 @@ pipeline {
 		    when { 
                 allOf { 
                     not { changeRequest() }
-                    branch 'develop' 
                 }
             }
             steps {
