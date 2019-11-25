@@ -1,0 +1,152 @@
+pipeline {
+	agent {
+		kubernetes {
+			label 'pic18f47q10-hello-world-example'
+            defaultContainer 'xc8-mplabx'
+            yamlFile 'cloudprovider.yml'
+        }
+    }
+	
+    environment {
+		GITHUB_URL = 'https://github.com/gauranggunde/test-deployment.git'
+		BITBUCKET_URL = 'https://bitbucket.microchip.com/scm/~c16188/pic18f47q10-hello-world-example.git'
+    }
+	
+	parameters {
+        string( name: 'WORKING_DIRECTORY', 
+                defaultValue: '',
+                description: "Working directory for build." )
+				
+	    booleanParam( name: 'SHOULD_DEPLOY_ON_DEVELOP',
+                defaultValue: false,
+                description: "If true and the build occurs on the develop or release branch, a deploy will occur.")
+			
+        string( name: 'NOTIFICATION_EMAIL',
+                defaultValue: 'gaurang.gunde@microchip.com',
+                subject: 'Test Deployment',
+                description: "Email to send successful build, failed build and deployment notifications.")
+		
+    }
+
+    options {
+        timestamps()
+        timeout(time: 30, unit: 'MINUTES')
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Build') {
+            steps {
+				script {
+					if (isUnix()) {					
+						sh "git clone https://bitbucket.microchip.com/scm/citd/tool-mplabx-c-build.git"
+						sh "cd ./tool-mplabx-c-build && node buildLauncher.js sp=../ rp=./output genMK=true"
+					} else {						
+						bat "git clone https://bitbucket.microchip.com/scm/citd/tool-mplabx-c-build.git"
+						bat "cd ./tool-mplabx-c-build && node buildLauncher.js sp=../ rp=./output genMK=true"
+					}
+				}
+            }
+        }
+
+        stage('Deploy') {
+		    when { 
+                allOf { 
+                    not { changeRequest() }
+                    branch 'develop' 
+                }
+            }
+            steps {
+			    dir("${params.WORKING_DIRECTORY}") {
+                    script {
+					    if(shouldDeploy()) {
+                            execute("git clone ${env.DEPLOY_TOOL_URL}")		
+                            execute("cd ${env.DEPLOY_SCRIPT_DIR} && git checkout feature/AutoDeploymentToGithub")
+                            execute("cd ${env.DEPLOY_SCRIPT_DIR} && ./deploy-source-as-is.sh ${BITBUCKET_URL} ${env.GITHUB_URL} gauranggunde:46e3e5a4e636fd94d29eb751d4cc8bbd40f84cc7")	
+				            // withCredentials([usernameColonPassword(credentialsId: 'GitHub Harish Agari', variable: 'USER_TOKEN')]) {
+			                    // execute("chmod +x deploy-source-as-is.sh")
+                                // execute("./deploy-source-as-is.sh ${env.BITBUCKET_URL} ${env.GITHUB_URL} $USER_TOKEN") 
+					            // if(shouldEmailDeployment()){
+				                    // sendDeploymentEmail();
+					            // }
+							// }
+						}
+			        }  
+                }
+            }	
+		}		
+    }
+
+    post {
+		success{
+            archiveArtifacts artifacts: "tool-mplabx-c-build/output/**", fingerprint: true
+            script {
+                if (!"${env.CHANGE_AUTHOR_EMAIL}".equalsIgnoreCase("null")) {
+                    mail to: "${env.CHANGE_AUTHOR_EMAIL}, ${params.NOTIFICATION_EMAIL}",
+                        subject: "Successful Pipeline: ${currentBuild.fullDisplayName}",
+                        body: "Something is right with ${env.BUILD_URL}"
+                } else {
+                    mail to: "${params.NOTIFICATION_EMAIL}",
+                        subject: "Successful Pipeline: ${currentBuild.fullDisplayName}",
+                        body: "Something is right with ${env.BUILD_URL}"
+                }
+            }
+        }
+        failure {
+            archiveArtifacts artifacts: "tool-mplabx-c-build/output/**", fingerprint: true
+            script {
+                if (!"${env.CHANGE_AUTHOR_EMAIL}".equalsIgnoreCase("null")) {
+                    mail    to: "${env.CHANGE_AUTHOR_EMAIL}, ${params.NOTIFICATION_EMAIL}",
+                            subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+                            body: "Pipeline failure. ${env.BUILD_URL}"
+                } else {
+                    mail    to: "${params.NOTIFICATION_EMAIL}",
+                            subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+                            body: "Pipeline failure. ${env.BUILD_URL}"
+                }
+            }
+        }
+    }
+}
+
+def execute(String command) {
+    if (isUnix()) {
+        sh command
+    } else {
+        bat command
+    }
+}
+
+def shouldDeploy() {
+    return isBranch('master') ||
+           ((isBranch('develop')) && shouldDeployOnDevelop())
+}
+
+def isBranch(String branch) {
+    return env.CHANGE_TARGET == "${branch}";
+}
+
+def shouldDeployOnDevelop() {
+    return "${params.SHOULD_DEPLOY_ON_DEVELOP}".toBoolean();
+}
+
+def shouldEmailDeployment() {
+    return isBranch('master');
+}
+
+def sendDeploymentEmail() {
+    echo("Sending 'Deployment' email to ${params.NOTIFICATION_EMAIL}");
+    mail(to: "${params.NOTIFICATION_EMAIL}",
+        subject: "Deployment: ${env.GITHUB_URL}",
+        body:
+    """
+    Deployment: Repository deployment from ${env.BITBUCKET_URL} to ${env.GITHUB_URL} is successful.
+    """);
+}
+
+
