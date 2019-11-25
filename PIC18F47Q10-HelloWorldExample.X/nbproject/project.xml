@@ -11,6 +11,16 @@
       <asminc-extensions />
       <sourceEncoding>ISO-8859-1</sourceEncoding>
       <make-dep-projects />
+      <confList>
+                <confElem>
+                    <name>free</name>
+                    <type>2</type>
+                </confElem>
+                <confElem>
+                    <name>pro</name>
+                    <type>2</type>
+                </confElem>
+            </confList>
     </data>
   </configuration>
 </project>
