@@ -59,7 +59,7 @@ pipeline {
                 allOf { 
                     not { changeRequest() }
                     branch 'master' 
-                    tag
+                    tag ''
                 }
             }
             steps {
