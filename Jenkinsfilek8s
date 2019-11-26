@@ -10,6 +10,8 @@ pipeline {
     environment {
 		GITHUB_URL = 'https://github.com/gauranggunde/test-deployment.git'
 		BITBUCKET_URL = 'https://bitbucket.microchip.com/scm/~c16188/pic18f47q10-hello-world-example.git'
+        DEPLOY_TOOL_URL = 'https://bitbucket.microchip.com/scm/~i15232/example-github-deployment-strategy-1.git'
+		DEPLOY_SCRIPT_DIR = 'example-github-deployment-strategy-1'
     }
 	
 	parameters {
