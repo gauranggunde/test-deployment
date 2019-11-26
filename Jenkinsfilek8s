@@ -56,8 +56,8 @@ pipeline {
 
         stage('Deploy') {
 		    when { 
-                allOf { 
-                    not { changeRequest() }
+                not { changeRequest() }
+                anyOf {                     
                     branch 'master' 
                     tag ''
                 }
