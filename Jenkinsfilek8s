@@ -56,6 +56,7 @@ pipeline {
 		    when { 
                 allOf { 
                     not { changeRequest() }
+                    branch 'master' 
                 }
             }
             steps {
@@ -120,8 +121,7 @@ def execute(String command) {
 }
 
 def shouldDeploy() {
-    return isBranch('master') ||
-           ((isBranch('develop')) && shouldDeployOnDevelop())
+    return true;
 }
 
 def isBranch(String branch) {
