@@ -163,6 +163,6 @@ New MCC Generated header and source files should now be present in the Project w
 ## Conclusions
 -----
 
->This project can be the basis for building any project that requires an I/O pin to control a digital output signal. This can include various circuits such as transistor controlled relay or LED displays. This will form the basis of just about any microcontroller based project.
+>This project can be the basis for building any project that requires an I/O pin to control a digital output signal. This can include various circuits such as transistor controlled relay or LED displays. This will form the basis of just about any microcontroller based project
 
 
