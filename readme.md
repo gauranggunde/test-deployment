@@ -14,7 +14,7 @@
 
 >The project uses: [PIC18F47Q10 Microcontoller](https://www.microchip.com/wwwproducts/en/PIC18F47Q10)
 
->To follow along with these steps, MPLAB® Xpress cloud based IDE should be open. The setup is described in the steps of this training module. You should see a screen similar to the one shown here to start.
+>To follow along with these steps, MPLABï¿½ Xpress cloud based IDE should be open. The setup is described in the steps of this training module. You should see a screen similar to the one shown here to start.
 
 ![](https://static.transim.com/img/102019/ef2a7b0347504c6ca53b69872bf32b1c-n2mdq.png){width=auto height=auto align=center}
 
@@ -28,7 +28,7 @@
 ## Task 2
 -----
 
->Create a new project in MPLAB® Xpress for PIC18F47Q10 using the Curiosity nano - Q10 Board. Instructions are below if this is your first project. Here is a video showing how to Create a Project in MPLAB® Xpress.
+>Create a new project in MPLABï¿½ Xpress for PIC18F47Q10 using the Curiosity nano - Q10 Board. Instructions are below if this is your first project. Here is a video showing how to Create a Project in MPLABï¿½ Xpress.
 
 >[https://youtu.be/xOrGLKIl8Rs](https://youtu.be/xOrGLKIl8Rs)
 
@@ -61,11 +61,11 @@ The project wizard will walk you through the process and prompt you for all the 
 ## Task 3 
 -----
 
->Open the MPLAB® Code Configurator (MCC) using the MCC icon or under the Tools>Embedded>MPLAB Xpress Code Configurator menu of MPLAB Xpress.
+>Open the MPLABï¿½ Code Configurator (MCC) using the MCC icon or under the Tools>Embedded>MPLAB Xpress Code Configurator menu of MPLAB Xpress.
 
 >![](https://static.transim.com/img/102019/e586ea81e16f4b8a89a80717969fd0c9-ysbb8.png){width=auto height=auto align=center}
 
->A window will appear showing three steps. If you need the latest version of Java you can click on step one, otherwise click on the step two button to open the MPLAB® Xpress Code Configurator.
+>A window will appear showing three steps. If you need the latest version of Java you can click on step one, otherwise click on the step two button to open the MPLABï¿½ Xpress Code Configurator.
 
 >![](https://static.transim.com/img/102019/15d63e8d19d245d2b0257816a1e6db31-1wj73.png){width=auto height=auto align=center}
 
@@ -80,7 +80,7 @@ The project wizard will walk you through the process and prompt you for all the 
 ## Task 4
 -----
 
->There are three default Project Resources associated with any MPLAB® Xpress project as shown here. For this project we only need to setup the System Module and the Pin Manager. The Interrupt Manager will not be used so they can be left in their default state.
+>There are three default Project Resources associated with any MPLABï¿½ Xpress project as shown here. For this project we only need to setup the System Module and the Pin Manager. The Interrupt Manager will not be used so they can be left in their default state.
 Let's start with the System Module settings. When the System Module selection is highlighted in the Project Resources area the System Module settings will appear in the center of the MCC screen.
 
 >![](https://static.transim.com/img/102019/955dc082ead840688aa3af41f0e759fd-nskdk.png){width=auto height=auto align=center}
@@ -116,7 +116,7 @@ Under the Easy Setup tab of the Pin Module section, you will see the output box 
 
 >![](https://static.transim.com/img/102019/37e13528f5824e2089cc849e1985b626-qqs32.png){width=auto height=auto align=center}
 
->Upon successful code generation the “Generation Completed” notification should appear. Select “OK” to close the window.
+>Upon successful code generation the ï¿½Generation Completedï¿½ notification should appear. Select ï¿½OKï¿½ to close the window.
 New MCC Generated header and source files should now be present in the Project window of the MPLAB Xpress IDE including a new main.c source file.
 
 >![](https://static.transim.com/img/102019/97f4333447e94a458ba80f52f31d685e-w1prn.png){width=auto height=auto align=center}
@@ -163,6 +163,6 @@ New MCC Generated header and source files should now be present in the Project w
 ## Conclusions
 -----
 
->This project can be the basis for building any project that requires an I/O pin to control a digital output signal. This can include various circuits such as transistor controlled relay or LED displays. This will form the basis of just about any microcontroller based project.
+>This project can be the basis for building any project that requires an I/O pin to control a digital output signal. This can include various circuits such as transistor controlled relay or LED displays. This will form the basis of just about any microcontroller based project
 
 
