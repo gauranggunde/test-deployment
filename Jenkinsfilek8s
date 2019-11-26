@@ -105,7 +105,7 @@ pipeline {
                             body: "Pipeline failure. ${env.BUILD_URL}"
                 } else {
                     mail    to: "${params.NOTIFICATION_EMAIL}",
-                            subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+                            subject: "Faled Pipeline: ${currentBuild.fullDisplayName}",
                             body: "Pipeline faiure. ${env.BUILD_URL}"
                 }
             }
