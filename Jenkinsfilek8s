@@ -1,7 +1,7 @@
 pipeline {
 	agent {
 		kubernetes {
-			label 'pic18f47q10-hello-world-example'
+			label 'pic18f47q10-hello-world'
             defaultContainer 'xc8-mplabx'
             yamlFile 'cloudprovider.yml'
         }
@@ -106,7 +106,7 @@ pipeline {
                 } else {
                     mail    to: "${params.NOTIFICATION_EMAIL}",
                             subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
-                            body: "Pipeline faiure. ${env.BUILD_URL}"
+                            body: "Pipeline failure. ${env.BUILD_URL}"
                 }
             }
         }
