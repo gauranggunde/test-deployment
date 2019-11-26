@@ -67,7 +67,7 @@ pipeline {
 					    if(shouldDeploy()) {
                             execute("git clone ${env.DEPLOY_TOOL_URL}")		
                             execute("cd ${env.DEPLOY_SCRIPT_DIR} && git checkout feature/AutoDeploymentToGithub")
-                            execute("cd ${env.DEPLOY_SCRIPT_DIR} && chmod +x deploy-source-as-is.sh && ./deploy-source-as-is.sh ${BITBUCKET_URL} ${env.GITHUB_URL} gauranggunde:46e3e5a4e636fd94d29eb751d4cc8bbd40f84cc7")	
+                            execute("cd ${env.DEPLOY_SCRIPT_DIR} && chmod +x deploy-source-as-is.sh && ./deploy-source-as-is.sh ${BITBUCKET_URL} ${env.GITHUB_URL} gauranggunde:a036ecbb9ed57edd3b57745e0524baaf8bd3ad8c")	
 				            // withCredentials([usernameColonPassword(credentialsId: 'GitHub Harish Agari', variable: 'USER_TOKEN')]) {
 			                    // execute("chmod +x deploy-source-as-is.sh")
                                 // execute("./deploy-source-as-is.sh ${env.BITBUCKET_URL} ${env.GITHUB_URL} $USER_TOKEN") 
